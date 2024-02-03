@@ -1,0 +1,52 @@
+#include <Wire.h>
+#include <Adafruit_LiquidCrystal.h>
+
+Adafruit_LiquidCrystal lcd_1(0);
+int green_light = 5;
+int green_button = 2;
+int red_button = 3;
+int red_light = 4;
+
+void setup()
+{
+  pinMode(green_button, INPUT);
+  pinMode(red_button, INPUT);
+  pinMode(green_light, OUTPUT);
+  pinMode(red_light, OUTPUT);
+  lcd_1.begin(16, 2);
+}
+
+void loop()
+{
+  int greenstate = digitalRead(green_button);
+  int redstate = digitalRead(red_button);
+
+  if (greenstate == HIGH)
+  {
+    digitalWrite(green_light, HIGH);
+    displayMessage("     (:  :D");
+    delay(2000); 
+  }
+  else
+  {
+    digitalWrite(green_light, LOW);
+  }
+
+  if (redstate == HIGH)
+  {
+    digitalWrite(red_light, HIGH);
+    displayMessage("      ): ;(");
+    delay(2000); 
+  }
+  else
+  {
+    digitalWrite(red_light, LOW);
+  }
+}
+
+void displayMessage(String message)
+{
+  lcd_1.clear();
+  lcd_1.setCursor(0, 0);
+  lcd_1.print(message);
+}
